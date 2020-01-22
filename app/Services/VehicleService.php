@@ -28,8 +28,13 @@ class VehicleService implements VehicleServiceInterface
     public function getVehicleExpenses(Request $request): array
     {
         $searchQueries = $this->getFilterQuery($request);
-        $data['expenses'] = $this->VehicleRepository->all($searchQueries['orderBy'], $searchQueries['sortBy'], $searchQueries['search'], $searchQueries['type'],
-            $searchQueries['limit']);
+        $data['expenses'] = $this->VehicleRepository->all(
+            $searchQueries['orderBy'],
+            $searchQueries['sortBy'],
+            $searchQueries['search'],
+            $searchQueries['type'],
+            $searchQueries['limit']
+        );
         return $data;
     }
 
@@ -43,11 +48,13 @@ class VehicleService implements VehicleServiceInterface
         $searchQueries['sortBy'] = 'asc';
         $searchQueries['search'] = '';
         $searchQueries['type'] = '';
-        $searchQueries['limit'] =  -1;
+        $searchQueries['limit'] = -1;
 
-        if (($request->has('orderBy') && $request->query('orderBy') == 'cost') || ($request->has('orderBy') && $request->query('orderBy') == 'created_at'))
+        if (($request->has('orderBy') && $request->query('orderBy') == 'cost') ||
+            ($request->has('orderBy') && $request->query('orderBy') == 'created_at'))
             $searchQueries['orderBy'] = $request->query('orderBy');
-        if (($request->has('sortBy') && $request->query('sortBy') == 'desc') || ($request->has('sortBy') && $request->query('sortBy') == 'asc'))
+        if (($request->has('sortBy') && $request->query('sortBy') == 'desc') ||
+            ($request->has('sortBy') && $request->query('sortBy') == 'asc'))
             $searchQueries['sortBy'] = $request->query('sortBy');
         if ($request->has('search'))
             $searchQueries['search'] = $request->query('search');
