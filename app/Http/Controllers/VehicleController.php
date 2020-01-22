@@ -28,7 +28,6 @@ class VehicleController extends Controller
      */
     public function listVehicleExpenses(Request $request): JsonResponse
     {
-        $vehicleExpenses = [];
         $vehicleExpenses = $this->service->getVehicleExpenses($request);
         return response()->json($vehicleExpenses);
     }
